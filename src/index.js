@@ -1,14 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import App from './routes/App.js';
 import reportWebVitals from './reportWebVitals';
+import {RouterProvider, createBrowserRouter} from 'react-router-dom';
+import Bag from './routes/Bag.js'
+import Home from './routes/Home.js';
+import { Provider } from 'react-redux';
+import myntraStore from './store/main.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {path: "/", element: <Home />},
+      {path: "/bag", element: <Bag />}
+    ]
+  }
+])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <Provider store={myntraStore}>
+      <RouterProvider router={router} />
+    </Provider>
+  </React.StrictMode> 
 );
 
 // If you want to start measuring performance in your app, pass a function
